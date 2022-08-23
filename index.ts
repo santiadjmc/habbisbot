@@ -32,7 +32,7 @@ client.on("ready", async () => {
     queries();
 });
 
-client.on("interactionCreate", async interaction => {
+client.on("interactionCreate", async (interaction): Promise<any> => {
     if (interaction.isChatInputCommand()) {
         const foundCommand: any | undefined = data.bot.commands.get(interaction.commandName);
         if (foundCommand) {
@@ -53,6 +53,13 @@ client.on("interactionCreate", async interaction => {
         else  {
             await interaction.reply({ ephemeral: true, content: "Unknown command" });
             Log.info("bot", `User ${interaction.user.tag} tried to execute an unknown slash command`);
+        }
+    }
+    else if (interaction.isButton()) {
+        if (interaction.customId.startsWith("delete_avatar")) {
+            const author = interaction.customId.slice("delete_avatar_".length);
+            if (interaction.user.id !== author) return interaction.reply({ ephemeral: true, content: "Tú no ejecutaste este comando." });
+            else interaction.message.delete();
         }
     }
 });
