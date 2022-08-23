@@ -5,7 +5,7 @@ const data: DataType = {
         host: String(process.env.DB_HOST),
         user: String(process.env.DB_USER),
         password: String(process.env.DB_PASSWORD),
-        name: String(process.env.DB_NAME)
+        database: String(process.env.DB_NAME)
     },
     bot: {
         owners: [],

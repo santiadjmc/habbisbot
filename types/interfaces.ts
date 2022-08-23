@@ -5,7 +5,7 @@ export interface DataType {
         user: string;
         password: string;
         port?: number;
-        name: string;
+        database: string;
     };
     bot: {
         owners: string[];
