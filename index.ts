@@ -5,6 +5,8 @@ import data from "./data";
 import * as fs from "fs";
 import Log from "./Log";
 import commands_register from "./commands_register";
+import queries from "./mysql/queries";
+import db from "./mysql/database";
 const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages]
 });
@@ -27,6 +29,7 @@ const commandsFiles = fs.readdirSync("./commands").filter(f => f.endsWith(".ts")
 client.on("ready", async () => {
     Log.success("bot", `Successfully logged into discord as ${client.user?.tag}`);
     await commands_register(data.bot.token, "1011457474076876820", "1005164415999549480");
+    queries();
 });
 
 client.on("interactionCreate", async interaction => {
