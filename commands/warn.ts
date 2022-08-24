@@ -15,7 +15,7 @@ export default {
         const target: User = (interaction.options.getUser("target") as User);
         await interaction.guild?.members.fetch();
         if (!interaction.guild?.members.cache.has(target.id)) return interaction.editReply({ content: "Unknown user" });
-        await db.query("INSERT INTO discord_warnings SET ?", [{ userid: target.id, authorid: interaction.user.id, reason }]);
+        await db.query("INSERT INTO discord_warnings SET ?", [{ userid: target.id, authorid: interaction.user.id, reason, createdAt: Math.round(Date.now() / 1000) }]);
         const userWarnings: any[] = ((await db.query("SELECT * FROM discord_warnings WHERE userid = ?", [target.id]) as unknown) as any[]);
         try {
             target.send(`Has recibido una advertencia en **${interaction.guild.name}** por parte de **${interaction.user.tag}**\nMotivo: ${reason}\nAdvertencia N° ${userWarnings.length}.`);
