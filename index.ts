@@ -26,9 +26,9 @@ const commandsFiles = fs.readdirSync("./commands").filter(f => f.endsWith(".ts")
     Log.info("commands", `Loaded ${data.bot.commands.size}/${commandsFiles.length} local commands`);
 })();
 
-client.on("ready", async () => {
+client.on("ready", async (): Promise<any> => {
     Log.success("bot", `Successfully logged into discord as ${client.user?.tag}`);
-    await commands_register(data.bot.token, "1011457474076876820", "1005164415999549480");
+    await commands_register(data.bot.token, "1011457474076876820", "1005164415999549480")
     queries();
 });
 
