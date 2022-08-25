@@ -8,6 +8,8 @@ export default {
         .addIntegerOption(option => option.setName("id").setDescription("ID de la advertencia que deseas remover (debe ser del usuario en cuestión)").setRequired(true)),
     execute: async (interaction: ChatInputCommandInteraction) => {
         await interaction.deferReply({ ephemeral: true });
+        const authorMember = await interaction.guild?.members.fetch(interaction.user.id);
+        if (!authorMember?.permissions.has("ModerateMembers")) return interaction.editReply("No tienes permisos para el uso de este comando.");
         const target = interaction.options.getUser("target") as User;
         const id = interaction.options.getInteger("id") as number;
         const foundWarn = ((await db.query("SELECT * FROM discord_warnings WHERE userid = ? AND id = ?", [target.id, id]) as unknown) as any[]);
