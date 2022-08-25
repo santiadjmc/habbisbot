@@ -2,9 +2,9 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteracti
 import db from "../mysql/database";
 export default {
     data: new SlashCommandBuilder()
-    .setName("warns")
-    .setDescription("Visualiza las advertencias de un usuario específico")
-    .addUserOption(option => option.setName("target").setDescription("Usuario cuyas advertencias deseas ver").setRequired(true)),
+        .setName("warns")
+        .setDescription("Visualiza las advertencias de un usuario específico")
+        .addUserOption(option => option.setName("target").setDescription("Usuario cuyas advertencias deseas ver").setRequired(true)),
     execute: async (interaction: ChatInputCommandInteraction) => {
         await interaction.deferReply({ ephemeral: false });
         const authorMember = await interaction.guild?.members.fetch(interaction.user.id);

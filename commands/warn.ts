@@ -3,10 +3,10 @@ import Log from "../Log";
 import db from "../mysql/database";
 export default {
     data: new SlashCommandBuilder()
-    .setName("warn")
-    .setDescription("Da una advertencia a un usuario")
-    .addUserOption(option => option.setName("target").setDescription("Usuario a advertir").setRequired(true))
-    .addStringOption(option => option.setName("reason").setDescription("Razón de la advertencia").setRequired(false)),
+        .setName("warn")
+        .setDescription("Da una advertencia a un usuario")
+        .addUserOption(option => option.setName("target").setDescription("Usuario a advertir").setRequired(true))
+        .addStringOption(option => option.setName("reason").setDescription("Razón de la advertencia").setRequired(false)),
     execute: async (interaction: ChatInputCommandInteraction) => {
         await interaction.deferReply({ ephemeral: true });
         const authorMember = await interaction.guild?.members.fetch(interaction.user.id);
@@ -21,7 +21,7 @@ export default {
             target.send(`Has recibido una advertencia en **${interaction.guild.name}** por parte de **${interaction.user.tag}**\nMotivo: ${reason}\nAdvertencia N° ${userWarnings.length}.`);
             await interaction.editReply({ content: `Advertencia registrada y enviada a **${target.tag}**.` });
         }
-        catch (err : any) {
+        catch (err: any) {
             Log.error("bot", err);
             await interaction.editReply({ content: `Advertencia a **${target.tag}** registrada, sin embargo, no pudo ser notificada al usuario.` });
         }
